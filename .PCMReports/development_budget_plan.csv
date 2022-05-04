@@ -1,0 +1,39 @@
+ProjectCodeMeter Development Budget Plan,,
+Report Creation Time,09/29/2018,16:39:11
+Created by,ProjectCodeMeter Pro v1.29 Licensed to Unregistered Trial,
+,,
+,,
+Settings:,Internal constraints,
+Programmer Price per Hour,100,
+Quality Guarantee,Stable Release (v1.222) 4-Sigma,
+Platform Maturity,Stable and Mostly documented,
+Debugging Tools,Complete system Step Emulator / VM / ICE,
+Development Team Productivity (%),100
+,,
+Cost Components:,Time (in hours),Cost (in $)
+Work Environment Setup ,,
+Development (Coding) ,"=ROUND(((412138/60)/B$11)*100,1)",=B15*B$7
+Development (Debugging) ,"=ROUND(((302440/60)/B$11)*100,1)",=B16*B$7
+Development (Testing) ,"=ROUND(((166856/60)/B$11)*100,1)",=B17*B$7
+Graphic Art ,,
+Database ,,
+Packaging ,,
+Documentation ,,
+,,
+,,
+,,
+,,
+,,
+,,
+,,
+,,
+,,
+Totals,=SUM(B14:B30),=SUM(C14:C30)
+Assigned personnel,1,
+Workhours per month,152,
+,,
+,,
+Man months,=B31/B33,
+Schedule Workdays,"=CEILING((31*B36)/(B32^0.99),1)",
+Schedule Starting Date,09/29/2018,
+Schedule Completion Date,=B38+B37,
