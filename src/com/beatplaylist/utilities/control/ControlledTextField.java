@@ -69,7 +69,7 @@ public class ControlledTextField extends StackPane {
 		});
 		if (isNumeric) {
 			this.textField.textProperty().addListener((observable, oldValue, newValue) -> {
-				if (!ValidateManager.isNumeric(this.textField.getText()) || this.textField.getText().length() > 5) {
+				if (!ValidateManager.isNumeric(this.textField.getText()) || this.textField.getText().length() > maxCharacters) {
 					this.textField.setText(oldValue);
 					return;
 				}

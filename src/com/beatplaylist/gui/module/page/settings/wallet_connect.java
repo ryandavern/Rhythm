@@ -33,6 +33,7 @@ import com.beatplaylist.utilities.network.post.DisconnectWallet;
 import com.beatplaylist.utilities.network.post.HasSyncedWallet;
 import com.beatplaylist.utilities.notification.AlertType;
 import com.beatplaylist.utilities.notification.Notification;
+import com.beatplaylist.utilities.popup.Popup;
 import com.beatplaylist.utilities.popup.PopupBuilder;
 import com.beatplaylist.utilities.user.UserManager;
 import com.beatplaylist.utilities.web3.PartneredContract;
@@ -220,7 +221,9 @@ public class wallet_connect {
 					});
 					buy.setOnMouseClicked(event -> {
 						try {
-							if (contract == PartneredContract.BNB) {
+							if (contract == PartneredContract.RHYTHM) {
+								Popup.fiatBuy();
+							} else if (contract == PartneredContract.BNB) {
 								Desktop.getDesktop().browse(new URI("https://binance.com/"));
 							} else if (contract == PartneredContract.BABYSWAP) {
 								Desktop.getDesktop().browse(new URI("https://exchange.babyswap.finance/#/swap?outputCurrency=" + contract.getContractAddress()));

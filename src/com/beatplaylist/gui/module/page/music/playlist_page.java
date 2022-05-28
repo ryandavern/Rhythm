@@ -476,11 +476,16 @@ public class playlist_page {
 		}
 		playlistNameText.setFill(Color.web(CustomColor.WHITE.getColorHex()));
 		playlistNameText.setFont(Font.font(FontType.VERDANA.getName(), FontWeight.BOLD, 14));
-		playlistNameText.setWrappingWidth(165);
+		playlistNameText.setWrappingWidth(210);
+
+		if (playlistNameText.getText().length() > 50) {
+			playlistNameText.setText(playlistNameText.getText().substring(0, 50) + "...");
+			CustomToolTip.install(playlistNameText, new CustomToolTip(playlist.getName()));
+		}
 
 		creatorUsernameText.setFill(Color.web(CustomColor.GRAY.getColorHex()));
 		creatorUsernameText.setFont(Font.font(FontType.VERDANA.getName(), 14));
-		creatorUsernameText.setWrappingWidth(165);
+		creatorUsernameText.setWrappingWidth(210);
 
 		followerCountText.setFill(Color.web(CustomColor.GRAY.getColorHex()));
 		followerCountText.setFont(Font.font(FontType.VERDANA.getName(), 14));
@@ -488,11 +493,6 @@ public class playlist_page {
 		songCountText.setFill(Color.web(CustomColor.GRAY.getColorHex()));
 		songCountText.setFont(Font.font(FontType.VERDANA.getName(), 14));
 		songCountText.textProperty().bind(Bindings.concat(" ", playlist.songCount.asString(), (playlist.getSongCount() == 1 ? " song" : " songs")));
-
-		if (playlist.getFeatureType().equals("NONE")) {
-			// footerHBox.setManaged(false);
-			// footerHBox.layoutYProperty().bind(playlistVBox.minHeightProperty().subtract(50));
-		}
 
 		footerHBox.getLeft().getChildren().add(songCountText);
 		footerHBox.getRight().getChildren().add(followerCountText);

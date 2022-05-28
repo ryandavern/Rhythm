@@ -47,6 +47,7 @@ import com.beatplaylist.utilities.network.post.AddOrRemoveSongFromPlaylist;
 import com.beatplaylist.utilities.network.post.CancelSubscription;
 import com.beatplaylist.utilities.network.post.Confirm2FACode;
 import com.beatplaylist.utilities.network.post.EditSongMetadata;
+import com.beatplaylist.utilities.network.post.FiatBuy;
 import com.beatplaylist.utilities.network.post.LinkSocialNetworkingAccount;
 import com.beatplaylist.utilities.network.post.MergePlaylist;
 import com.beatplaylist.utilities.network.post.SubmitAFeaturedPlaylist;
@@ -93,6 +94,152 @@ import javafx.stage.WindowEvent;
 public class Popup {
 
 	// Use PopupVBox instead of VBox
+
+	public static void fiatBuy() {
+		PopupBuilder popup = new PopupBuilder();
+		popup.getContentVBox().setSpacing(25);
+
+		popup.setHeaderText("Rhythm - Fiat Buy");
+		popup.setConfirmButtonText("Buy $RHYTHM");
+
+		ControlledTextField cardNumber = new ControlledTextField(16, true), cvvNumber = new ControlledTextField(4, true);
+
+		cardNumber.getTextField().setStyle("-fx-background-color: " + CustomColor.BACKGROUND.getColorHex() + "; -fx-text-fill: " + CustomColor.WHITE.getColorHex() + "; -fx-prompt-text-fill: derive(-fx-control-inner-background,-30%);");
+		cardNumber.getTextField().setMinWidth(300);
+		cardNumber.getTextField().setMinHeight(35);
+		cardNumber.getTextField().setPromptText("Card number");
+
+		cvvNumber.getTextField().setStyle("-fx-background-color: " + CustomColor.BACKGROUND.getColorHex() + "; -fx-text-fill: " + CustomColor.WHITE.getColorHex() + "; -fx-prompt-text-fill: derive(-fx-control-inner-background,-30%);");
+		cvvNumber.getTextField().setMinWidth(75);
+		cvvNumber.getTextField().setMinHeight(35);
+		cvvNumber.getTextField().setPromptText("CVV");
+
+		ComboBox<String> expiryMonth = new ComboBox<>(), expiryYear = new ComboBox<>();
+
+		expiryMonth.setStyle("-fx-background-color: " + CustomColor.BACKGROUND.getColorHex() + "; -fx-text-fill: " + CustomColor.WHITE.getColorHex() + ";");
+		expiryMonth.setValue("Expiry Month");
+		expiryMonth.setMinSize(200, 35);
+		expiryMonth.setCursor(Cursor.HAND);
+		expiryMonth.getItems().addAll("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
+
+		expiryYear.setStyle("-fx-background-color: " + CustomColor.BACKGROUND.getColorHex() + "; -fx-text-fill: " + CustomColor.WHITE.getColorHex() + ";");
+		expiryYear.setValue("Expiry Year");
+		expiryYear.setMinSize(200, 35);
+		expiryYear.setCursor(Cursor.HAND);
+
+		for (int i = 2022; i < 2030; i++) {
+			expiryYear.getItems().addAll(String.valueOf(i));
+		}
+
+		PopupHBox hbox = new PopupHBox(10), cardHBox = new PopupHBox(10), cardExpiryHBox = new PopupHBox(10);
+		StringProperty chosenOption = new SimpleStringProperty();
+		List<Button> chosen = new ArrayList<>();
+
+		for (int i = 1; i < 6; i++) {
+			final int number = i;
+			Button buy = new Button("Buy $" + (50 * i));
+
+			if (i == 1) {
+				chosen.add(buy);
+				buy.setOpacity(0.4);
+			}
+
+			buy.setStyle("-fx-background-color: " + CustomColor.BACKGROUND.getColorHex() + ";");
+			buy.setMinSize(75, 35);
+			buy.setFont(Font.font(FontType.DEFAULT.getName(), FontWeight.BOLD, 16));
+			buy.setTextFill(Color.WHITE);
+
+			buy.setOnMouseEntered(event -> {
+				if (buy.getOpacity() < 0.8)
+					return;
+
+				buy.setCursor(Cursor.HAND);
+				buy.setTextFill(Color.web(CustomColor.RHYTHM.getColorHex()));
+			});
+			buy.setOnMouseExited(event -> {
+				buy.setTextFill(Color.WHITE);
+			});
+			buy.setOnAction(event -> {
+				chosenOption.set(String.valueOf(50 * number));
+
+				buy.setOpacity(0.4);
+
+				if (chosen.get(0) != null) {
+					chosen.get(0).setOpacity(1);
+				}
+
+				chosen.clear();
+				chosen.add(buy);
+			});
+
+			hbox.getChildren().add(buy);
+		}
+
+		popup.onConfirm(event -> {
+
+			FiatBuy.send(cardNumber.getTextField().getText(), cvvNumber.getTextField().getText(), expiryMonth.getValue(), expiryYear.getValue(), chosenOption.get());
+
+			popup.close();
+		});
+
+		cardExpiryHBox.getChildren().addAll(expiryMonth, expiryYear);
+		cardHBox.getChildren().addAll(cardNumber, cvvNumber);
+		popup.getContentVBox().getChildren().addAll(hbox, cardHBox, cardExpiryHBox);
+
+		popup.open();
+	}
+
+	public static void addCardToAccount() {
+		PopupBuilder popup = new PopupBuilder();
+		popup.getContentVBox().setSpacing(25);
+
+		popup.setHeaderText("Rhythm - Add Card");
+		popup.setConfirmButtonText("Add Card");
+
+		ControlledTextField cardNumber = new ControlledTextField(16, true), cvvNumber = new ControlledTextField(4, true);
+
+		cardNumber.getTextField().setStyle("-fx-background-color: " + CustomColor.BACKGROUND.getColorHex() + "; -fx-text-fill: " + CustomColor.WHITE.getColorHex() + "; -fx-prompt-text-fill: derive(-fx-control-inner-background,-30%);");
+		cardNumber.getTextField().setMinWidth(300);
+		cardNumber.getTextField().setMinHeight(35);
+		cardNumber.getTextField().setPromptText("Card number");
+
+		cvvNumber.getTextField().setStyle("-fx-background-color: " + CustomColor.BACKGROUND.getColorHex() + "; -fx-text-fill: " + CustomColor.WHITE.getColorHex() + "; -fx-prompt-text-fill: derive(-fx-control-inner-background,-30%);");
+		cvvNumber.getTextField().setMinWidth(75);
+		cvvNumber.getTextField().setMinHeight(35);
+		cvvNumber.getTextField().setPromptText("CVV");
+
+		ComboBox<String> expiryMonth = new ComboBox<>(), expiryYear = new ComboBox<>();
+
+		expiryMonth.setStyle("-fx-background-color: " + CustomColor.BACKGROUND.getColorHex() + "; -fx-text-fill: " + CustomColor.WHITE.getColorHex() + ";");
+		expiryMonth.setValue("Expiry Month");
+		expiryMonth.setMinSize(200, 35);
+		expiryMonth.setCursor(Cursor.HAND);
+		expiryMonth.getItems().addAll("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
+
+		expiryYear.setStyle("-fx-background-color: " + CustomColor.BACKGROUND.getColorHex() + "; -fx-text-fill: " + CustomColor.WHITE.getColorHex() + ";");
+		expiryYear.setValue("Expiry Year");
+		expiryYear.setMinSize(200, 35);
+		expiryYear.setCursor(Cursor.HAND);
+
+		for (int i = 2022; i < 2030; i++) {
+			expiryYear.getItems().addAll(String.valueOf(i));
+		}
+
+		PopupHBox cardHBox = new PopupHBox(10), cardExpiryHBox = new PopupHBox(10);
+
+		popup.onConfirm(event -> {
+
+			//FiatBuy.send(cardNumber.getTextField().getText(), cvvNumber.getTextField().getText(), expiryMonth.getValue(), expiryYear.getValue());
+
+			popup.close();
+		});
+
+		cardExpiryHBox.getChildren().addAll(expiryMonth, expiryYear);
+		cardHBox.getChildren().addAll(cardNumber, cvvNumber);
+		popup.getContentVBox().getChildren().addAll(cardHBox, cardExpiryHBox);
+
+		popup.open();
+	}
 
 	public static void createPlaylist(CompleteEvent completeEvent) {
 		PopupBuilder popup = new PopupBuilder();

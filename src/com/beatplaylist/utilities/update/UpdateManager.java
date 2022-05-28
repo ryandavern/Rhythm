@@ -31,25 +31,27 @@ import com.install4j.api.update.UpdateScheduleRegistry;
 public class UpdateManager {
 
 	public static HashMap<String, UpdateCategory> updates = new HashMap<>();
-	private static String date = "01/05/2022", client_version = "0.9.6";
+	private static String date = "10/05/2022", client_version = "0.9.7";
 
 	public static void addAllUpdates() {
 		// New Feature
-		addUpdate("", UpdateCategory.NEW_FEATURE);
-		addUpdate("", UpdateCategory.NEW_FEATURE);
-		addUpdate("", UpdateCategory.NEW_FEATURE);
+		// addUpdate("", UpdateCategory.NEW_FEATURE);
+		// addUpdate("", UpdateCategory.NEW_FEATURE);
+		// addUpdate("", UpdateCategory.NEW_FEATURE);
 		// addUpdate("", UpdateCategory.NEW_FEATURE);
 		// addUpdate("", UpdateCategory.NEW_FEATURE);
 
 		// Improvements
-		addUpdate("", UpdateCategory.IMPROVEMENT);
+		// addUpdate("", UpdateCategory.IMPROVEMENT);
 
 		// Bug Fix
 		addUpdate("Wallet connect page now displays correct earned $RHYTHM.", UpdateCategory.BUG_FIX);
 		addUpdate("Browse page fixes.", UpdateCategory.BUG_FIX);
 		addUpdate("'Claim Rewards' button has been disabled during testing.", UpdateCategory.BUG_FIX);
+		addUpdate("Playlist titles no longer overlap playlist card.", UpdateCategory.BUG_FIX);
 
 		// Coming Soon
+		addUpdate("Chromium Extension Support", UpdateCategory.COMING_SOON);
 		addUpdate("Rhythm Hub - Suggested Playlists", UpdateCategory.COMING_SOON);
 		addUpdate("Verified NFT profile pictures", UpdateCategory.COMING_SOON);
 		addUpdate("Cross-project playlist competitions", UpdateCategory.COMING_SOON);

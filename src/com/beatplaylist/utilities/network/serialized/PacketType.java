@@ -79,10 +79,11 @@ public enum PacketType {
 	GET_BALANCE, // Get Rhythm + BNB Balance
 	DISCONNECT_WALLET, // Disconnect wallet from account
 	HAS_SYNCED_WALLET, // Check if wallet is synced
+	FIAT_BUY, // Fiat Buy Purhcase
 
 	// HUB
 	GET_SUGGESTED_USERS, // Get suggested users for Rhythm Hub
-	
+
 	// SETTINGS
 	LINK_GOOGLE, //
 	REVOKE_ACCOUNT, //
